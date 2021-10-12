@@ -17,7 +17,7 @@ except ImportError:
     from urllib2 import urlopen, Request  # Python 2
 
 
-__version__ = "0.3.0"
+__version__ = "0.4.0rc1"
 
 
 class Acme(object):
