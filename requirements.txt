@@ -1,3 +1,4 @@
 pyOpenSSL>=0.13
 pycrypto>=2.6
 boto3~=1.9.30
+dnspython>=2.1.0

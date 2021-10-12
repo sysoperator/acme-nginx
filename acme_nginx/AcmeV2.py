@@ -11,6 +11,7 @@ from .Acme import Acme
 from .DigitalOcean import DigitalOcean
 from .AWSRoute53 import AWSRoute53
 from .Cloudflare import Cloudflare
+from .Bind9 import Bind9
 
 
 class AcmeV2(Acme):
@@ -216,6 +217,8 @@ class AcmeV2(Acme):
                 dns_client = AWSRoute53()
             elif self.dns_provider == "cloudflare":
                 dns_client = Cloudflare()
+            elif self.dns_provider == "bind9":
+                dns_client = Bind9(keypath=self.tsig_key)
             self.solve_dns_challenge(directory, dns_client)
         else:
             self.solve_http_challenge(directory)

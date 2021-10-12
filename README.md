@@ -57,9 +57,10 @@ New protocol is used by default.
 
 `dns-01` currently supports following providers:
 
--  DigitalOcean
+- DigitalOcean
 - AWS Route53
 - Cloudflare
+- Bind9
 
 Technically nginx is not needed for this type of challenge but script still calls nginx reload by default
 because it assumes that you store certificates on the same server where you issue
@@ -241,6 +242,17 @@ acme-nginx --dns-provider digitalocean -d '*.example.com'
 sudo su -
 export API_TOKEN=yourCloudflareApiToken
 acme-nginx --dns-provider cloudflare -d '*.example.com'
+```
+
+### Bind9
+
+Create TSIG key with [rndc-confgen](https://bind.isc.org/doc/arm/9.11/man.rndc-confgen.html) first. Then export `DNS_SERVER` environment variable which
+points to your DNS e.g. `export DNS_SERVER=ns.example.com` and use as follows:
+
+```bash
+sudo su -
+export DNS_SERVER=ns.example.com
+acme-nginx --dns-provider bind9 --tsig-key /path/to/TSIG.key -d '*.example.com'
 ```
 
 

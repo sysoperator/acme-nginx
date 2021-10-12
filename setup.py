@@ -2,7 +2,7 @@
 
 from setuptools import setup, find_packages
 
-p_version = "0.3.0"
+p_version = "0.4.0rc1"
 
 with open("README.md") as f:
     long_description = f.read()
@@ -35,6 +35,7 @@ setup(
         "pyOpenSSL>=20.0",
         "pycrypto>=2.6",
         "boto3~=1.17",
+        "dnspython>=2.1.0",
     ],
     entry_points={
         "console_scripts": [

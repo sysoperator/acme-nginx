@@ -69,7 +69,15 @@ def set_arguments():
     parser.add_argument(
         "--dns-provider",
         dest="dns_provider",
-        choices=["digitalocean", "route53", "cloudflare"],
+        choices=["digitalocean", "route53", "cloudflare", "bind9"],
+    )
+    parser.add_argument(
+        "--tsig-key",
+        dest="tsig_key",
+        help=(
+            "the TSIG key file, "
+            "should be in DNS KEY record format"
+        ),
     )
     parser.add_argument(
         "--staging", action="store_true", help="use staging api endpoint for testing"
@@ -89,8 +97,10 @@ def set_arguments():
     parser.add_argument(
         "--renew-days", dest="renew_days", type=int, help="expiration threshold in days"
     )
-    return parser.parse_args()
-
+    args = parser.parse_args()
+    if args.dns_provider == "bind9" and args.tsig_key is None:
+        parser.error("--dns-provider bind9 requires --tsig-key")
+    return args
 
 def main():
     args = set_arguments()
@@ -124,6 +134,7 @@ def main():
         cert_path=args.cert_path,
         debug=args.debug,
         dns_provider=args.dns_provider,
+        tsig_key=args.tsig_key,
         skip_nginx_reload=args.skip_reload,
         renew_days=args.renew_days,
     )

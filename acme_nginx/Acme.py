@@ -31,6 +31,7 @@ class Acme(object):
         domain_key="/etc/ssl/private/letsencrypt-domain.key",
         cert_path="/etc/ssl/private/letsencrypt-domain.pem",
         dns_provider=None,
+        tsig_key=None,
         skip_nginx_reload=False,
         renew_days=None,
         debug=False,
@@ -46,6 +47,7 @@ class Acme(object):
             domain_key, str, path to certificate private key
             cert_path, str, path to output certificate file
             dns_provider, list, dns provider that is used for dns challenge
+            tsig_key, str, path to the TSIG key file
             skip_nginx_reload, bool, should nginx be reloaded after certificate issue
         """
         self.debug = debug
@@ -61,6 +63,7 @@ class Acme(object):
         # LetsEncrypt Root CA certificate chain, needed for ACMEv1
         self.chain = "https://letsencrypt.org/certs/lets-encrypt-x3-cross-signed.pem"
         self.dns_provider = dns_provider
+        self.tsig_key = tsig_key
         self.skip_nginx_reload = skip_nginx_reload
         self.renew_days = renew_days
 
