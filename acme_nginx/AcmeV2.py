@@ -218,7 +218,7 @@ class AcmeV2(Acme):
             elif self.dns_provider == "cloudflare":
                 dns_client = Cloudflare()
             elif self.dns_provider == "bind9":
-                dns_client = Bind9(keypath=self.tsig_key)
+                dns_client = Bind9(keypath=self.tsig_key, log=self.log)
             self.solve_dns_challenge(directory, dns_client)
         else:
             self.solve_http_challenge(directory)
